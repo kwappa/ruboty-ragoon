@@ -1,6 +1,8 @@
 module Ruboty
   module Ragoon
     class Event
+      include ::Ruboty::Ragoon::Template
+
       attr_accessor :date
       attr_reader   :events
 
@@ -14,7 +16,7 @@ module Ruboty
       end
 
       def render(private: false)
-        events = format(private)
+        render_template('events', events: format(private), date: self.date)
       end
 
       private
