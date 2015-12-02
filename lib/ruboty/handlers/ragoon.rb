@@ -5,7 +5,9 @@ module Ruboty
 
       def schedule(message)
         target_date = Date.parse(message[:date]) rescue Date.today
-        message.reply(target_date.to_s)
+        events = ::Ruboty::Ragoon::Event.new(target_date)
+
+        message.reply(events.render.to_s)
       end
     end
   end
