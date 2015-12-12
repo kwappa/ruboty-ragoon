@@ -35,9 +35,11 @@ module Ruboty
         if !private && event[:private]
           title = '予定あり'
           facilities = ''
+          url = ''
         else
           title = event[:title]
           facilities = event[:facilities].join(', ')
+          url = event[:url]
         end
 
         {
@@ -46,6 +48,7 @@ module Ruboty
           title:      title,
           facilities: facilities,
           private:    event[:private],
+          url:        url,
         }
       end
 
