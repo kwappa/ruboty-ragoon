@@ -2,7 +2,7 @@
 
 <% if events.count > 0 %>
 <% events.each do |event| %>
-* <%= event[:period] %> <%= event[:plan] %> <%= event[:private] ? ':lock: ' : '' %><%= event[:title] %> <%= event[:facilities] %>
+* <%= event[:period] %> <%= event[:plan] %> <%= event[:private] ? ':lock: ' : '' %><%= event[:title] %> <%= event[:facilities] %> <%= event[:url] %>
 <% end %>
 <% else %>
 予定はありません。
