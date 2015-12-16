@@ -43,6 +43,7 @@ module Ruboty
         end
 
         {
+          id:         event[:id],
           plan:       plan,
           period:     period,
           title:      title,
