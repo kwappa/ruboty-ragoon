@@ -1,6 +1,6 @@
 module Ruboty
   module Actions
-    class Ragoon < ::Ruboty::Actions::Base
+    class Event < ::Ruboty::Actions::Base
       def call
         target_date = parse_date(message[:date])
         events = ::Ruboty::Ragoon::Event.new(target_date)
