@@ -3,8 +3,10 @@ module Ruboty
     class Notification < ::Ruboty::Actions::Base
       def call
         notifications = ::Ragoon::Services::Notification.new.retrieve
+                        .find_all { |n| n[:is_history] == 'false' }
+
         unless notifications.empty?
-          reply = ":new: 新着通知があります #{notification_url}"
+          reply = ":new: #{notifications.count}件の新着通知があります #{notification_url}"
           message.reply(reply)
         end
       end
