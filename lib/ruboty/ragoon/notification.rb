@@ -48,6 +48,10 @@ module Ruboty
           @subject     = data[:subject]
           @url         = data[:abstract_url]
         end
+
+        def format
+          "#{@module_icon} #{@subject[0 .. 30]} #{@url}"
+        end
       end
     end
   end
