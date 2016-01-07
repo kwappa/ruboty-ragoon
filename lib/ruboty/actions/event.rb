@@ -1,21 +1,15 @@
 module Ruboty
   module Actions
     class Event < ::Ruboty::Actions::Base
+      include ::Ruboty::Actions::Helpers
+
       def call
         target_date = parse_date(message[:date])
         events = ::Ruboty::Ragoon::Event.new(target_date)
-        message.reply(events.render(private: check_private(message)))
+        message.reply(events.render(private: private?))
       end
 
       private
-
-      def check_private(message)
-        adapter = message.original[:robot].send(:adapter)
-        return false unless adapter.respond_to?(:user_info)
-
-        owner = adapter.send(:user_info, ENV['SLACK_OWNER_ID'])
-        message.from.start_with?('D') && owner['name'] == message.from_name
-      end
 
       def parse_date(date)
         date = date.strip.downcase
