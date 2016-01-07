@@ -10,12 +10,16 @@ module Ruboty
       private
 
       def check_private(message)
-        owner = message.original[:robot].send(:adapter).send(:user_info, ENV['SLACK_OWNER_ID'])
+        adapter = message.original[:robot].send(:adapter)
+        return false unless adapter.respond_to?(:user_info)
+
+        owner = adapter.send(:user_info, ENV['SLACK_OWNER_ID'])
         message.from.start_with?('D') && owner['name'] == message.from_name
       end
 
       def parse_date(date)
-        case date.downcase
+        date = date.strip.downcase
+        case date
         when 'today'
           Date.today
         when 'tomorrow'
