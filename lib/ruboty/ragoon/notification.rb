@@ -1,17 +1,22 @@
 module Ruboty
   module Ragoon
     class Notification
-      attr_accessor :date
       attr_reader   :list
 
-      def initialize(date = Date.today)
-        @date = date
-        self.retrieve
+      def initialize
+        retrieve
       end
 
       def retrieve
-        raw_list = ::Ragoon::Services::Notification.new.retrieve(date: self.date).find_all { |n| n[:is_history] == 'false' }
-        @list = raw_list.map { |data| Item.new(data) }
+        @list = ::Ragoon::Services::Notification.new.retrieve.map { |data| Item.new(data) }
+      end
+
+      def unread_count
+        @list.count { |item| item.unread }
+      end
+
+      def empty?
+        unread_count == 0
       end
 
       class Item
