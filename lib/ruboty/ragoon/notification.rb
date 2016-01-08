@@ -1,18 +1,26 @@
 module Ruboty
   module Ragoon
     class Notification
-      attr_reader   :list
+      attr_reader   :list, :brain
 
-      def initialize
+      def initialize(brain)
+        @brain = brain
         retrieve
       end
 
       def retrieve
-        @list = ::Ragoon::Services::Notification.new.retrieve.map { |data| Item.new(data) }
+        new_notifications = ::Ragoon::Services::Notification.new.retrieve.map { |data| Item.new(data) }.find_all { |item| item.unread }
+        notified_ids = @brain.data['notification_notified_ids'] || []
+        new_ids = new_notifications.map(&:id)
+        notified_ids &= new_ids
+        not_notified_ids = new_ids - notified_ids
+        @brain.data['notification_notified_ids'] = notified_ids + new_ids
+
+        @list = new_notifications.find_all { |n| notified_ids.include?(n.id) }
       end
 
       def unread_count
-        @list.count { |item| item.unread }
+        @list.count
       end
 
       def empty?
