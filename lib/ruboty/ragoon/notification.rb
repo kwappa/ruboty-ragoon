@@ -9,14 +9,17 @@ module Ruboty
       end
 
       def retrieve
-        new_notifications = ::Ragoon::Services::Notification.new.retrieve.map { |data| Item.new(data) }.find_all { |item| item.unread }
+        new_notifications = ::Ragoon::Services::Notification.new.retrieve
+                            .map { |data| Item.new(data) }
+                            .find_all { |item| item.unread }
+
         notified_ids = @brain.data['notification_notified_ids'] || []
         new_ids = new_notifications.map(&:id)
         notified_ids &= new_ids
         not_notified_ids = new_ids - notified_ids
         @brain.data['notification_notified_ids'] = notified_ids + new_ids
 
-        @list = new_notifications.find_all { |n| notified_ids.include?(n.id) }
+        @list = new_notifications.find_all { |n| not_notified_ids.include?(n.id) }
       end
 
       def unread_count
