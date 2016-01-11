@@ -13,13 +13,10 @@ module Ruboty
                             .map { |data| Item.new(data) }
                             .find_all { |item| item.unread }
 
-        notified_ids = @brain.data['notification_notified_ids'] || []
-        new_ids = new_notifications.map(&:id)
-        notified_ids &= new_ids
-        not_notified_ids = new_ids - notified_ids
-        @brain.data['notification_notified_ids'] = notified_ids + new_ids
+        new_notification_ids = new_notifications.map(&:id)
+        ids_to_notify = not_notified_ids(new_notification_ids)
 
-        @list = new_notifications.find_all { |n| not_notified_ids.include?(n.id) }
+        @list = new_notifications.find_all { |n| ids_to_notify.include?(n.id) }
       end
 
       def unread_count
@@ -28,6 +25,13 @@ module Ruboty
 
       def empty?
         unread_count == 0
+      end
+
+      def not_notified_ids(new_notification_ids)
+        notified_ids = @brain.data['notification_notified_ids'] || []
+        notified_ids &= new_notification_ids
+        @brain.data['notification_notified_ids'] = notified_ids + new_notification_ids
+        new_notification_ids - notified_ids
       end
 
       class Item
