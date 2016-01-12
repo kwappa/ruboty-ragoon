@@ -1,6 +1,6 @@
 module Ruboty
   module Actions
-    module Helpers
+    module Ragoon
       def private?
         adapter = message.original[:robot].send(:adapter)
         return false unless adapter.private_methods.include?(:user_info)
