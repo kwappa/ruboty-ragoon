@@ -4,7 +4,7 @@ module Ruboty
       include ::Ruboty::Actions::Helpers
 
       def call
-        notifications = ::Ruboty::Ragoon::Notification.new(message.robot.brain)
+        notifications = ::Ruboty::Ragoon::Notification.new(message.robot.brain).retrieve
         unless notifications.empty?
           reply = [":new: #{notifications.unread_count}件の新着通知があります #{notification_url}"]
 

@@ -5,7 +5,6 @@ module Ruboty
 
       def initialize(brain)
         @brain = brain
-        retrieve
       end
 
       def retrieve
