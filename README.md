@@ -1,5 +1,7 @@
 # Ruboty::Ragoon
 
+[![Build Status](https://travis-ci.org/kwappa/ruboty-ragoon.svg)](https://travis-ci.org/kwappa/ruboty-ragoon)
+
 [Ragoon](https://github.com/kwappa/ragoon) handler for [Ruboty](https://github.com/r7kamura/ruboty)
 
 ## Installation

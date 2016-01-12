@@ -5,11 +5,11 @@ module Ruboty
       on(/grn notice/, name: 'notification',  description: 'show new notification from garoon')
 
       def schedule(message)
-        ::Ruboty::Actions::Event.new(message).call
+        ::Ruboty::Actions::Ragoon::Event.new(message).call
       end
 
       def notification(message)
-        ::Ruboty::Actions::Notification.new(message).call
+        ::Ruboty::Actions::Ragoon::Notification.new(message).call
       end
     end
   end
