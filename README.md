@@ -22,7 +22,24 @@ Set these variables to connect your Garoon (required by Ragoon)
 
 ## Usage
 
-TODO: Write usage instructions here
+### Event
+
+- `grn event[ date]`
+  - fetch events specified by `date`
+  - `date` allows `yesterday`, `today`, `tomorrow` and string that can bs parsed by `Date.parse`
+  - default : `today`
+- private event
+  - mask place and description when replies in channel
+  - show place and detail when replies in direct message
+
+### Notification
+
+- `grn notice`
+  - show today`s unread notifications
+  - replies only first time
+    - reminds notified ids in `Ruboty::Brains`
+- better to use with `ruboty-cron`
+  - e.g) `ruboty add job "*/10 8-22 * * *" grn notice`
 
 ## License
 
