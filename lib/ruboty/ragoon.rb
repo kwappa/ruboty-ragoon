@@ -1,6 +1,7 @@
 require 'ragoon'
 require 'ruboty'
 require 'ruboty/ragoon/config'
+require 'ruboty/ragoon/notify_once'
 require 'ruboty/ragoon/template'
 require 'ruboty/ragoon/event'
 require 'ruboty/ragoon/notification'
