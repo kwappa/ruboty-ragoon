@@ -12,8 +12,9 @@ module Ruboty
 
       def retrieve
         now = Time.now.localtime
-        event = Event.new
-        event.retrieve
+
+        @event = Event.new
+        @event.filter_events { |event| event[:start_at] - NOTIFY_BEFORE_EVENT_START * 60 < now }
       end
     end
   end

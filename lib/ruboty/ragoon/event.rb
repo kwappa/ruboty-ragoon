@@ -19,6 +19,10 @@ module Ruboty
         render_template('events', events: format(private), date: self.date)
       end
 
+      def filter_events(proc)
+        @events = @events.find_all { |event| proc.call(event) }
+      end
+
       private
 
       def format(private)
