@@ -3,7 +3,11 @@ module Ruboty::Actions::Ragoon
     include ::Ruboty::Actions::Ragoon
 
     def call
-      message.reply('[WIP] I will notify event before few minutes')
+      reminder = ::Ruboty::Ragoon::Remind.new(message.robot.brain)
+      events = reminder.retrieve
+      if events.count > 0
+        message.reply(events.render(private: private?, template: 'remind'))
+      end
     end
   end
 end
