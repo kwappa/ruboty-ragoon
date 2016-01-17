@@ -1,6 +1,8 @@
 module Ruboty
   module Ragoon
     class Notification
+      include NotifyOnce
+
       attr_reader   :list, :brain
 
       def initialize(brain)
@@ -24,13 +26,6 @@ module Ruboty
 
       def empty?
         unread_count == 0
-      end
-
-      def not_notified_ids(new_notification_ids)
-        notified_ids = @brain.data['notification_notified_ids'] || []
-        notified_ids &= new_notification_ids
-        @brain.data['notification_notified_ids'] = notified_ids + new_notification_ids
-        new_notification_ids - notified_ids
       end
 
       class Item

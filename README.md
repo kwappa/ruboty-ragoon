@@ -35,11 +35,18 @@ Set these variables to connect your Garoon (required by Ragoon)
 ### Notification
 
 - `grn notice`
-  - show today`s unread notifications
+  - show today's unread notifications
   - replies only first time
     - reminds notified ids in `Ruboty::Brains`
 - better to use with `ruboty-cron`
   - e.g) `ruboty add job "*/10 8-22 * * *" grn notice`
+
+### Remind
+
+- `grn remind`
+  - remind event before 3 minutes at start
+- better to use with `ruboty-cron`
+  - e.g) `ruboty add job "* 8-22 * * *" grn remind`
 
 ## License
 

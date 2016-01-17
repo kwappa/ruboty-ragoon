@@ -15,8 +15,16 @@ module Ruboty
         @events ||= ::Ragoon::Services::Schedule.new.schedule_get_events(::Ragoon::Services.start_and_end(date))
       end
 
-      def render(private: false)
-        render_template('events', events: format(private), date: self.date)
+      def render(private: false, template: 'events')
+        render_template(template, events: format(private), date: self.date)
+      end
+
+      def filter_events(&proc)
+        @events = @events.find_all { |event| proc.call(event) }
+      end
+
+      def count
+        @events.count
       end
 
       private
