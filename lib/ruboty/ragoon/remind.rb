@@ -15,7 +15,12 @@ module Ruboty
 
         @event = Event.new
         @event.filter_events do |event|
-          Time.parse(event[:start_at]).localtime - NOTIFY_BEFORE_EVENT_START * 60 < now
+          begin
+            event_start = Time.parse(event[:start_at]).localtime
+            event_start.betwwen?(now, now + NOTIFY_BEFORE_EVENT_START * 60)
+          rescue
+            false
+          end
         end
 
         new_event_ids = not_notified_ids(@event.events.map { |event| event[:id] })
