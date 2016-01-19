@@ -17,7 +17,7 @@ module Ruboty
         @event.filter_events do |event|
           begin
             event_start = Time.parse(event[:start_at]).localtime
-            event_start.betwwen?(now, now + NOTIFY_BEFORE_EVENT_START * 60)
+            event_start.between?(now, now + NOTIFY_BEFORE_EVENT_START * 60)
           rescue
             false
           end
