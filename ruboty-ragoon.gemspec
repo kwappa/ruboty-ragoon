@@ -19,7 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_dependency 'ruboty'
-  spec.add_dependency 'ragoon', '~> 0.4.1'
+  spec.add_dependency 'ragoon', '~> 0.5.0'
   spec.add_dependency 'tilt'
 
   spec.add_development_dependency 'bundler', '~> 1.10'
