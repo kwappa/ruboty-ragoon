@@ -53,6 +53,7 @@ module Ruboty
         {
           id:         event[:id],
           plan:       plan,
+          emoticon:   event_plan_emoticon(event),
           period:     period,
           title:      title,
           facilities: facilities,
@@ -66,6 +67,20 @@ module Ruboty
           ''
         else
           Time.parse(time).localtime.strftime('%R')
+        end
+      end
+
+      def event_plan_emoticon(event)
+        case event[:plan].to_s.strip
+        when '社内MTG'      then ':office:'
+        when '来客'         then ':briefcase:'
+        when '外出'         then ':runner:'
+        when '休み'         then ':confetti_ball:'
+        when 'メンテナンス' then ':wrench:'
+        when '作業'         then ':art:'
+        when '出張'         then ':bullettrain_side:'
+        when '研修'         then ':school:'
+        else                     ':memo:'
         end
       end
     end
