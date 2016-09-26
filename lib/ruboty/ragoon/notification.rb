@@ -3,14 +3,15 @@ module Ruboty
     class Notification
       include NotifyOnce
 
-      attr_reader   :list, :brain
+      attr_reader :list, :brain
 
       def initialize(brain)
-        @brain = brain
+        @brain   = brain
+        @service = ::Ragoon::Services::Notification.new
       end
 
       def retrieve
-        new_notifications = ::Ragoon::Services::Notification.new.retrieve
+        new_notifications = @service.retrieve
                             .map { |data| Item.new(data) }
                             .find_all { |item| item.unread }
 
@@ -26,6 +27,10 @@ module Ruboty
 
       def empty?
         unread_count == 0
+      end
+
+      def list_url
+        "#{@service.garoon_endpoint.gsub(/\?.*\Z/, '')}/notification/index"
       end
 
       class Item
